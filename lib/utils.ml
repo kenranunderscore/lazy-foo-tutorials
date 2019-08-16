@@ -53,4 +53,13 @@ module Utils = struct
          const (Sdl.free_surface surface)
          |> with_msg "Freeing window surface")
 
+  let with_bitmap path =
+    bracket
+      (fun _ ->
+         print_endline ("Loading bitmap '" ^ path ^ "'");
+         Sdl.load_bmp path)
+      (fun surface ->
+         const (Sdl.free_surface surface)
+         |> with_msg "Freeing bitmap surface")
+
 end

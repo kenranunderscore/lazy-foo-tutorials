@@ -1,0 +1,3 @@
+(executable
+ (libraries tsdl rresult utils)
+ (name main))
