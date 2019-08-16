@@ -9,16 +9,12 @@ module Utils = struct
     action ()
 
   let bracket acquire release body =
-    let res = acquire () in
-    match res with
-    | Error (`Msg e) ->
-      raise (Sdl_error ("Could not acquire resource: " ^ e))
+    match acquire () with
+    | Error (`Msg e) as error -> Sdl.log "An error occurred: %s" e; error
     | Ok resource ->
-      try let x = body resource in
-        release resource; x
-      with Sdl_error ex ->
-        release resource;
-        raise @@ Sdl_error ex
+      let res = body resource in
+      release resource;
+      res
 
   let init_sdl_video () =
     (fun _ -> Sdl.init Sdl.Init.video)
