@@ -60,6 +60,6 @@ module Utils = struct
          Sdl.load_bmp path)
       (fun surface ->
          const (Sdl.free_surface surface)
-         |> with_msg "Freeing bitmap surface")
+         |> with_msg ("Freeing bitmap surface '" ^ path ^ "'"))
 
 end
