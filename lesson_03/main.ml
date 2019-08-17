@@ -8,11 +8,10 @@ let screen_height = 480
 let event_loop window screen_surface bitmap_surface () =
   let e = Sdl.Event.create () in
   let rec loop () =
-    match Sdl.wait_event (Some e) with
-    | Error (`Msg error) ->
-      Sdl.log "Could not wait for event: %s" error;
-      ()
-    | Ok () ->
+    match Sdl.poll_event (Some e) with
+    | false ->
+      loop ()
+    | true ->
       match Sdl.Event.(enum (get e typ)) with
       | `Quit ->
         print_endline "Received SDL_QUIT"
