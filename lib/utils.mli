@@ -10,5 +10,6 @@ module Utils : sig
   val with_window: int -> int -> string -> (Sdl.window -> 'a Sdl.result) -> 'a Sdl.result
   val with_window_surface: Sdl.window -> (Sdl.surface -> 'a Sdl.result) -> 'a Sdl.result
   val with_bitmap: string -> (Sdl.surface -> 'a Sdl.result) -> 'a Sdl.result
+  val with_bitmap_optimized: string -> Sdl.surface -> (Sdl.surface -> 'a Sdl.result) -> 'a Sdl.result
 
 end

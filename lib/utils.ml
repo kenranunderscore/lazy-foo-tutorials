@@ -1,4 +1,5 @@
 open Tsdl
+open Rresult
 
 module Utils = struct
 
@@ -61,5 +62,16 @@ module Utils = struct
       (fun surface ->
          const (Sdl.free_surface surface)
          |> with_msg ("Freeing bitmap surface '" ^ path ^ "'"))
+
+  let with_bitmap_optimized path screen_surface =
+    bracket
+      (fun _ ->
+         print_endline ("Loading bitmap '" ^ path ^ "' with optimization");
+         let target_format = Sdl.get_surface_format_enum screen_surface in
+         with_bitmap path @@ fun surface ->
+         Sdl.convert_surface_format surface target_format)
+      (fun surface ->
+         const (Sdl.free_surface surface)
+         |> with_msg ("Freeing optimized surface '" ^ path ^ "'"))
 
 end
