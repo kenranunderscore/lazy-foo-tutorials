@@ -41,10 +41,10 @@ let _ =
   Utils.with_sdl @@ fun _ ->
   Utils.with_window screen_width screen_height "SDL Tutorial" @@ fun window ->
   Utils.with_window_surface window @@ fun screen_surface ->
-  Utils.with_bitmap "press.bmp" @@ fun default_surface ->
-  Utils.with_bitmap "up.bmp" @@ fun up_surface ->
-  Utils.with_bitmap "down.bmp" @@ fun down_surface ->
-  Utils.with_bitmap "left.bmp" @@ fun left_surface ->
-  Utils.with_bitmap "right.bmp" @@ fun right_surface ->
+  Utils.with_bitmap "resources/press.bmp" @@ fun default_surface ->
+  Utils.with_bitmap "resources/up.bmp" @@ fun up_surface ->
+  Utils.with_bitmap "resources/down.bmp" @@ fun down_surface ->
+  Utils.with_bitmap "resources/left.bmp" @@ fun left_surface ->
+  Utils.with_bitmap "resources/right.bmp" @@ fun right_surface ->
   event_loop window screen_surface default_surface up_surface down_surface left_surface right_surface ();
   Ok ()
