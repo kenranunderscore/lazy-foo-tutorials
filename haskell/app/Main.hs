@@ -1,6 +1,9 @@
 module Main where
 
 import qualified Lesson01
+import qualified Lesson02
 
 main :: IO ()
-main = Lesson01.main
+main = do
+  Lesson01.main
+  Lesson02.main

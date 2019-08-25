@@ -30,3 +30,12 @@ withWindowSurface window = Exception.bracket
   (\surface -> do
       putStrLn $ "Destroying window surface..."
       SDL.freeSurface surface)
+
+withBitmapSurface :: FilePath -> (SDL.Surface -> IO a) -> IO a
+withBitmapSurface path = Exception.bracket
+  (do
+      putStrLn $ "Loading bitmap surface '" ++ path ++ "'..."
+      SDL.loadBMP path)
+  (\surface -> do
+      putStrLn $ "Destroying bitmap surface '" ++ path ++ "'..."
+      SDL.freeSurface surface)
