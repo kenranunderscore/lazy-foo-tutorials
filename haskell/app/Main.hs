@@ -1,5 +1,7 @@
 module Main where
 
+import           Relude
+
 import qualified Lesson01
 import qualified Lesson02
 

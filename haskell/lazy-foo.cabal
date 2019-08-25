@@ -22,10 +22,13 @@ library
   -- other-modules:
   -- other-extensions:
   build-depends:       base ^>=4.12.0.0
+                     , relude
                      , sdl2
                      , text
   hs-source-dirs:      src
   default-language:    Haskell2010
+  default-extensions:  NoImplicitPrelude
+                     , OverloadedStrings
 
 executable lazy-foo
   main-is:             Main.hs
@@ -33,5 +36,8 @@ executable lazy-foo
   -- other-extensions:
   build-depends:       base ^>=4.12.0.0
                      , lazy-foo
+                     , relude
   hs-source-dirs:      app
   default-language:    Haskell2010
+  default-extensions:  NoImplicitPrelude
+                     , OverloadedStrings
