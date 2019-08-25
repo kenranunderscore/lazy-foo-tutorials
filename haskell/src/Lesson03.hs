@@ -17,7 +17,7 @@ main =
     Utils.withBitmapSurface "../resources/x.bmp" $ \x ->
     let
       loop = do
-        eventPayloads <- SDL.pollEvents >>= (return . map SDL.eventPayload)
+        eventPayloads <- map SDL.eventPayload <$> SDL.pollEvents
         let quit = elem SDL.QuitEvent eventPayloads
         SDL.surfaceBlit x Nothing screenSurface Nothing
         SDL.updateWindowSurface window

@@ -19,6 +19,7 @@ library
   exposed-modules:     Lesson01
                      , Lesson02
                      , Lesson03
+                     , Lesson04
                      , Utils
   -- other-modules:
   -- other-extensions:
