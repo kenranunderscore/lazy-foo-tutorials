@@ -1,2 +1,4 @@
 **/_build/
 **/.merlin
+**/dist-newstyle/
+**/.ghc*
