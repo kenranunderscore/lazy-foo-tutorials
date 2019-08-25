@@ -3,6 +3,7 @@ module Utils
   , withWindow
   , withWindowSurface
   , withBitmapSurface
+  , withOptimizedBitmapSurface
   )
 where
 
@@ -32,6 +33,16 @@ withBitmapSurface :: FilePath -> (SDL.Surface -> IO a) -> IO a
 withBitmapSurface path = Exception.bracket
   (withMessage ("Loading bitmap surface '" <> toText path <> "'...") (SDL.loadBMP path))
   (withMessage ("Destroying bitmap surface '" <> toText path <> "'...") . SDL.freeSurface)
+
+withOptimizedBitmapSurface :: FilePath -> SDL.SurfacePixelFormat -> (SDL.Surface -> IO a) -> IO a
+withOptimizedBitmapSurface path targetFormat = Exception.bracket
+  (loadOptimizedBitmap path targetFormat)
+  (withMessage ("Destroying optimized bitmap surface '" <> toText path <> "'...") . SDL.freeSurface)
+
+loadOptimizedBitmap :: FilePath -> SDL.SurfacePixelFormat -> IO SDL.Surface
+loadOptimizedBitmap path targetFormat = do
+  putTextLn $ "Loading bitmap surface '" <> toText path <> "' with optimization..."
+  withBitmapSurface path (flip SDL.convertSurface targetFormat)
 
 withMessage :: Text -> IO a -> IO a
 withMessage message action = do
