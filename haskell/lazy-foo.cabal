@@ -22,6 +22,7 @@ library
                      , Lesson04
                      , Lesson05
                      , Lesson07
+                     , Lesson08
                      , Utils
   -- other-modules:
   -- other-extensions:
