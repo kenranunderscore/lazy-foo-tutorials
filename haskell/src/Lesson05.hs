@@ -1,4 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
 module Lesson05 where
 
 import           Relude

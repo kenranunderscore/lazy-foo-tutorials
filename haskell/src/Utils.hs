@@ -1,9 +1,12 @@
 module Utils
   ( withSdl
+  , withSdlImage
   , withWindow
   , withWindowSurface
   , withBitmapSurface
   , withOptimizedBitmapSurface
+  , withRenderer
+  , withTexture
   )
 where
 
@@ -13,6 +16,7 @@ import qualified Control.Exception as Exception
 import           Data.Text         (Text)
 import qualified Data.Text         as Text
 import qualified SDL
+import qualified SDL.Image         as IMG
 
 withSdl :: [SDL.InitFlag] -> IO a -> IO a
 withSdl flags = Exception.bracket_
@@ -47,3 +51,22 @@ loadOptimizedBitmap path targetFormat = do
 withMessage :: Text -> IO a -> IO a
 withMessage message action = do
   putTextLn message >> action
+
+withSdlImage :: [IMG.InitFlag] -> IO a -> IO a
+withSdlImage flags = Exception.bracket_
+  (withMessage "Initializing SDL_Image..." (IMG.initialize flags))
+  (withMessage "Quitting SDL_Image..." IMG.quit)
+
+withRenderer :: SDL.Window -> SDL.RendererConfig -> (SDL.Renderer -> IO a) -> IO a
+withRenderer window rendererConfig = Exception.bracket
+  (withMessage "Creating renderer..." (SDL.createRenderer window (-1) rendererConfig))
+  (withMessage "Destroying renderer..." . SDL.destroyRenderer)
+
+withTexture :: SDL.Renderer -> FilePath -> (SDL.Texture -> IO a) -> IO a
+withTexture renderer path = Exception.bracket
+  (loadTexture renderer path)
+  (withMessage ("Destroying texture '" <> toText path <> "'...") . SDL.destroyTexture)
+
+loadTexture :: SDL.Renderer -> FilePath -> IO SDL.Texture
+loadTexture renderer path =
+  (withMessage ("Loading texture from '" <> toText path <> "'...)") (IMG.loadTexture renderer path))
