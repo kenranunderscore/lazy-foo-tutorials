@@ -27,6 +27,7 @@ library
   -- other-extensions:
   build-depends:       base ^>=4.12.0.0
                      , relude
+                     , safe-exceptions
                      , sdl2
                      , sdl2-image
                      , text
