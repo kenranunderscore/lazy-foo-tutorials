@@ -9,6 +9,7 @@ import qualified Lesson04
 import qualified Lesson05
 import qualified Lesson07
 import qualified Lesson08
+import qualified Lesson09
 
 main :: IO ()
 main = do
@@ -19,3 +20,4 @@ main = do
   Lesson05.main
   Lesson07.main
   Lesson08.main
+  Lesson09.main
